@@ -1,0 +1,29 @@
+{
+  "name": "linktree-insights-scraper",
+  "version": "1.0.0",
+  "description": "Linktree insights scraper for Google Sheets automation",
+  "type": "module",
+  "main": "scrape.js",
+  "scripts": {
+    "start": "node scrape.js",
+    "postinstall": "npx playwright install --with-deps"
+  },
+  "dependencies": {
+    "playwright": "^1.40.0",
+    "googleapis": "^128.0.0",
+    "date-fns": "^2.30.0",
+    "date-fns-tz": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "linktree",
+    "scraper",
+    "google-sheets",
+    "automation"
+  ],
+  "author": "",
+  "license": "MIT"
+}
+
