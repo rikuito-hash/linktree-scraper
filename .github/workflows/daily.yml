@@ -1,0 +1,40 @@
+name: Linktree Insights Daily Scraper
+
+on:
+  schedule:
+    - cron: '5 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run scraper
+      env:
+        LINKTREE_EMAIL: ${{ secrets.LINKTREE_EMAIL }}
+        LINKTREE_PASSWORD: ${{ secrets.LINKTREE_PASSWORD }}
+        LT_COOKIE: ${{ secrets.LT_COOKIE }}
+        WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+      run: npm start
+      
+    - name: Upload logs on failure
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: scraper-logs
+        path: |
+          *.log
+          logs/
